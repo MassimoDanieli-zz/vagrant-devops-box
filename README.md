@@ -7,3 +7,5 @@
 * Ansible
 * Packer
 * Docker
+* Sakffold
+* Kubectl

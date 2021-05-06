@@ -45,15 +45,20 @@ wget -q https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_
 
 # skaffold 
 
-curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && \
-sudo install skaffold /usr/local/bin/ 
-
+curl -s -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && \
+sudo install skaffold /usr/local/bin/ \ 
+&& rm skaffold \
+&& echo "Skaffold installed"
 # kubectl
 
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
-&& sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+curl -s -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
+&& sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl \
+&& rm kubectl \
+&& echo "Kubectl installed"
 
 # clean up
 if [ ! ${REDHAT_BASED} ] ; then
   apt-get clean
 fi
+
+echo "DevOps box ready to use"
