@@ -46,12 +46,12 @@ wget -q https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_
 # skaffold 
 
 curl -s -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && \
-sudo install skaffold /usr/local/bin/ \ 
+sudo install skaffold /usr/local/bin/ \
 && rm skaffold \
 && echo "Skaffold installed"
 # kubectl
 
-curl -s -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
+wget -q "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
 && sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl \
 && rm kubectl \
 && echo "Kubectl installed"
