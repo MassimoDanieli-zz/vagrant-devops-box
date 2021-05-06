@@ -22,7 +22,7 @@ if [ ${REDHAT_BASED} ] ; then
   yum install -y docker ansible unzip wget
 else 
   apt-get update
-  apt-get -y install docker.io ansible unzip python3-pip
+  apt-get -y install docker.io ansible unzip python3-pip curl
 fi
 # add docker privileges
 usermod -G docker ubuntu
@@ -42,6 +42,16 @@ wget -q https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_
 wget -q https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip \
 && unzip -o packer_${PACKER_VERSION}_linux_amd64.zip -d /usr/local/bin \
 && rm packer_${PACKER_VERSION}_linux_amd64.zip
+
+# skaffold 
+
+curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && \
+sudo install skaffold /usr/local/bin/ 
+
+# kubectl
+
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
+&& sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
 # clean up
 if [ ! ${REDHAT_BASED} ] ; then
